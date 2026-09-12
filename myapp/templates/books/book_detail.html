@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ book.title }}</h2>
+<p>by {{ book.author }}</p>
+<p>ISBN: {{ book.isbn }}</p>
+<p>Price: ${{ book.price }}</p>
+<p>Stock: {{ book.stock }} {% if book.in_stock %}(in stock){% else %}(out of stock){% endif %}</p>
+{% if book.published_date %}<p>Published: {{ book.published_date }}</p>{% endif %}
+<p>{{ book.description }}</p>
+
+<a href="{% url 'book-update' book.pk %}">Edit</a> |
+<a href="{% url 'book-delete' book.pk %}">Delete</a> |
+<a href="{% url 'book-list' %}">Back to list</a>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Books</h2>
+
+<form method="get">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search title or author">
+  <button type="submit">Search</button>
+</form>
+
+<a href="{% url 'book-create' %}">+ Add a book</a>
+
+<ul>
+  {% for book in books %}
+    <li>
+      <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a>
+      by {{ book.author }} — ${{ book.price }}
+      {% if not book.in_stock %}<strong>(out of stock)</strong>{% endif %}
+    </li>
+  {% empty %}
+    <li>No books found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
