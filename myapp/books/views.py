@@ -54,6 +54,7 @@ def book_update(request, pk):
     book = get_object_or_404(Book, pk=pk)
 
     if request.method == "POST":
+        # instance in the argument here indicate BookForm to just update the existing book 
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
