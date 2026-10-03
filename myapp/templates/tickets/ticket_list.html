@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Support Tickets</h2>
+<a href="{% url 'ticket-create' %}">+ File a new ticket</a>
+
+<ul>
+  {% for ticket in tickets %}
+    <li>
+      <a href="{% url 'ticket-detail' ticket.pk %}">#{{ ticket.pk }} {{ ticket.subject }}</a>
+      — {{ ticket.get_status_display }}
+      (updated {{ ticket.updated_at|date:"M d, Y" }})
+    </li>
+  {% empty %}
+    <li>You haven't filed any tickets yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
