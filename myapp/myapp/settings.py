@@ -1,3 +1,5 @@
+import secretpassword;
+
 """
 Django settings for myapp project.
 
@@ -112,11 +114,11 @@ LOGOUT_REDIRECT_URL = "login"       # where users land after logging out
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Asia/Bangkok"   # use your own zone name
+USE_TZ = True
 
 USE_I18N = True
 
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -139,5 +141,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'chaiyawattoutawin@gmail.com'
-EMAIL_HOST_PASSWORD = 'hrtmklqguxbwizcg'  # no spaces
+EMAIL_HOST_PASSWORD = secretpassword.apppass;
 DEFAULT_FROM_EMAIL = 'chaiyawattoutawin@gmail.com'
