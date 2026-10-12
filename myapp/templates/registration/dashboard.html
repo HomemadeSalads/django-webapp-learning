@@ -2,6 +2,7 @@
 {% block content %}
 <h2>Welcome, {{ user.username }}!</h2>
 <p>This page is only visible to logged-in users.</p>
+<p><a href="{% url 'book-list' %}">to book store</a></p>
 <form method="post" action="{% url 'logout' %}">
   {% csrf_token %}
   <button type="submit">Log Out</button>

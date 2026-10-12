@@ -2,16 +2,290 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}My Site{% endblock %}</title>
+  <title>{% block title %}My Site{% endblock %} - Mega Super Store</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px 0;
+      background: #99ccff;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      color: #000;
+    }
+    a { color: #0000cc; }
+    a:visited { color: #660099; }
+    a:hover { color: #ff0000; text-decoration: underline; }
+
+    #wrapper {
+      width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 2px solid #003366;
+    }
+
+    /* top strip */
+    #topbar {
+      background: #003366;
+      color: #ffffff;
+      font-size: 11px;
+      padding: 3px 8px;
+      text-align: right;
+    }
+    #topbar a { color: #ffff99; }
+
+    /* logo header */
+    #header {
+      background: #ff9900;
+      background: linear-gradient(#ffcc33, #ff9900);
+      border-bottom: 3px solid #cc6600;
+      padding: 10px 12px;
+    }
+    #header h1 {
+      margin: 0;
+      font-family: "Comic Sans MS", "Trebuchet MS", Verdana, sans-serif;
+      font-size: 34px;
+      font-style: italic;
+      color: #cc0000;
+      text-shadow: 2px 2px 0 #ffffff;
+    }
+    #header .tagline {
+      font-size: 12px;
+      font-weight: bold;
+      color: #003366;
+    }
+    #header table { width: 100%; }
+    #header td.right { text-align: right; vertical-align: middle; }
+
+    .search-box input[type=text] {
+      width: 170px;
+      border: 2px inset #999;
+      font-size: 11px;
+      padding: 2px;
+    }
+    .btn {
+      background: #e0e0e0;
+      border: 2px outset #ffffff;
+      font-family: Verdana, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 8px;
+      cursor: pointer;
+    }
+    .btn:active { border-style: inset; }
+
+    /* nav */
+    #nav {
+      background: #003366;
+      border-top: 1px solid #6699cc;
+      border-bottom: 1px solid #000033;
+      padding: 0;
+    }
+    #nav a {
+      display: inline-block;
+      padding: 6px 14px;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 12px;
+      text-decoration: none;
+      border-right: 1px solid #6699cc;
+    }
+    #nav a:hover { background: #ff9900; color: #000033; }
+
+    /* news ticker */
+    #ticker {
+      background: #ffffcc;
+      border-bottom: 1px dashed #cc9900;
+      padding: 4px 10px;
+      font-weight: bold;
+      color: #cc0000;
+    }
+
+    /* layout table */
+    #layout { width: 100%; border-collapse: collapse; }
+    #layout td { vertical-align: top; }
+    #sidebar {
+      width: 170px;
+      background: #eef5ff;
+      border-right: 1px solid #99b3cc;
+      padding: 8px;
+    }
+    #main { padding: 12px 16px; }
+
+    .box { border: 1px solid #003366; margin-bottom: 10px; background: #ffffff; }
+    .box h3 {
+      margin: 0;
+      padding: 3px 6px;
+      background: #003366;
+      color: #ffffff;
+      font-size: 12px;
+    }
+    .box ul { margin: 0; padding: 4px 4px 4px 18px; list-style: square; }
+    .box li { padding: 2px 0; }
+    .box .inner { padding: 6px; text-align: center; }
+
+    .hot {
+      background: #ffff00;
+      border: 2px dashed #ff0000;
+      padding: 6px;
+      text-align: center;
+      font-weight: bold;
+      color: #cc0000;
+    }
+
+    /* django messages */
+    ul.messages { list-style: none; margin: 0 0 12px 0; padding: 0; }
+    ul.messages li {
+      padding: 6px 10px;
+      margin-bottom: 4px;
+      border: 2px solid #999;
+      background: #eeeeee;
+      font-weight: bold;
+    }
+    ul.messages li.success { background: #ccffcc; border-color: #009900; color: #006600; }
+    ul.messages li.error   { background: #ffcccc; border-color: #cc0000; color: #990000; }
+    ul.messages li.warning { background: #ffffcc; border-color: #cc9900; color: #996600; }
+    ul.messages li.info    { background: #cce5ff; border-color: #0066cc; color: #003366; }
+
+    /* general content helpers */
+    #main h1, #main h2 {
+      font-family: "Trebuchet MS", Verdana, sans-serif;
+      color: #003366;
+      border-bottom: 2px solid #ff9900;
+      padding-bottom: 3px;
+    }
+    #main table.data { border-collapse: collapse; width: 100%; }
+    #main table.data th {
+      background: #003366; color: #fff; padding: 4px 6px; text-align: left;
+    }
+    #main table.data td { border: 1px solid #99b3cc; padding: 4px 6px; }
+    #main table.data tr:nth-child(even) td { background: #eef5ff; }
+
+    /* footer */
+    #footer {
+      background: #003366;
+      color: #cccccc;
+      text-align: center;
+      font-size: 11px;
+      padding: 10px;
+      border-top: 3px solid #ff9900;
+    }
+    #footer a { color: #ffff99; }
+    .counter {
+      display: inline-block;
+      background: #000;
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+      padding: 1px 6px;
+      border: 2px inset #666;
+      letter-spacing: 2px;
+    }
+  </style>
+  {% block extra_head %}{% endblock %}
 </head>
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li class="{{ message.tags }}">{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
 <body>
-  {% block content %}{% endblock %}
+<div id="wrapper">
+
+  <div id="topbar">
+    Welcome, guest!
+    <a href="{% url 'login' %}">Sign In</a> |
+    <a href="{% url 'register' %}">Register FREE</a> |
+    <a href="{% url 'dashboard' %}">My Account</a> |
+    <a href="#">Help</a>
+  </div>
+
+  <div id="header">
+    <table>
+      <tr>
+        <td>
+          <h1>Mega Super Store!</h1>
+          <div class="tagline">~ Your #1 Online Shopping Destination Since 2001 ~</div>
+        </td>
+        <td class="right">
+          <form class="search-box" action="#" method="get">
+            <b>Search:</b>
+            <input type="text" name="q">
+            <input type="submit" value="GO!" class="btn">
+          </form>
+          <div style="margin-top:6px;">
+            <a href="#"><b>&#128722; View Cart (0 items)</b></a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="nav">
+    <a href="/">Home</a><a href="#">Products</a><a href="#">Specials</a><a href="#">New Arrivals</a><a href="#">Customer Service</a><a href="#">Contact Us</a>
+  </div>
+
+  <div id="ticker">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+      *** FREE SHIPPING on orders over $25! *** Sign up for our newsletter and win a FREE gift! *** 100% Secure Ordering! ***
+    </marquee>
+  </div>
+
+  <table id="layout">
+    <tr>
+      <td id="sidebar">
+        {% block sidebar %}
+        <div class="box">
+          <h3>Categories</h3>
+          <ul>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Computers</a></li>
+            <li><a href="#">Books &amp; Music</a></li>
+            <li><a href="#">Home &amp; Garden</a></li>
+            <li><a href="#">Toys &amp; Games</a></li>
+            <li><a href="#">Clearance</a></li>
+          </ul>
+        </div>
+
+        <div class="hot">
+          HOT DEAL!<br>
+          Up to 50% OFF<br>
+          <a href="#">Click Here!</a>
+        </div>
+
+        <div class="box" style="margin-top:10px;">
+          <h3>Newsletter</h3>
+          <div class="inner">
+            Get the latest deals!<br>
+            <input type="text" size="14"><br>
+            <input type="submit" value="Join" class="btn" style="margin-top:4px;">
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>We Accept</h3>
+          <div class="inner">VISA &bull; MC &bull; AMEX<br>PayPal</div>
+        </div>
+        {% endblock %}
+      </td>
+
+      <td id="main">
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+      </td>
+    </tr>
+  </table>
+
+  <div id="footer">
+    <a href="#">About Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> |
+    <a href="#">Shipping Info</a> | <a href="#">Returns</a> | <a href="#">Site Map</a>
+    <br><br>
+    You are visitor number <span class="counter">001337</span>
+    <br><br>
+    Best viewed in Internet Explorer 6.0 at 1024x768 resolution.<br>
+    &copy; 2001-2026 Mega Super Store. All rights reserved.
+  </div>
+
+</div>
 </body>
 </html>
