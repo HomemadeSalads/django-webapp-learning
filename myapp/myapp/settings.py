@@ -1,4 +1,4 @@
-import secretpassword;
+from . import secretpassword;
 
 """
 Django settings for myapp project.
