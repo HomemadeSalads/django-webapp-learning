@@ -54,6 +54,7 @@ def book_update(request, pk):
     book = get_object_or_404(Book, pk=pk)
 
     if request.method == "POST":
+        # instance in the argument here indicate BookForm to just update the existing book 
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
@@ -75,6 +76,7 @@ def book_delete(request, pk):
 
     if request.method == "POST":
         title = book.title
+        # Django ORM translate to "DELETE book FROM database WHERE pk = pk "
         book.delete()
         messages.success(request, f'"{title}" was deleted.')
         return redirect("book-list")
